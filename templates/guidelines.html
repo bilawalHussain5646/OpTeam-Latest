@@ -1,0 +1,143 @@
+{% extends "default.html" %} {% block title %}Guidelines{% endblock %} {% block
+head %}
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  nav ul {
+    width: 100%;
+
+    margin: 0px;
+    padding: 15px 10px 5px 10px;
+    list-style-type: none;
+    text-align: center;
+  }
+  .login-button {
+    padding: 5px 10px;
+    font-size: x-large;
+    text-align: right;
+    color: #573333;
+  }
+
+  nav ul li a {
+    color: white;
+
+    padding: 0px 10px;
+  }
+  nav ul li a:hover {
+    text-decoration: none;
+  }
+  .btn-primary {
+    border-radius: 5px;
+    width: auto;
+    border: none;
+    background-color: #009bed;
+  }
+  .login-button a:hover {
+    color: #009bed;
+    text-decoration: none;
+  }
+
+  .main {
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+  }
+  .try-our-product {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    padding: 50px;
+    background-color: #8ed6ff;
+    color: #333333;
+    border-top: 5px solid #333333;
+  }
+  .try-our-product .product-content ul {
+    list-style-type: none;
+    padding: 0px;
+    font-size: large;
+    font-weight: 600;
+  }
+  .try-now-btn {
+    font-size: larger;
+    font-weight: bolder;
+    background-color: #53b0df;
+    border: 5px solid #85afc7;
+    color: #b7e1f9;
+  }
+  header {
+    background: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: #07717c;
+  }
+  .login-button a {
+    color: #07717c;
+  }
+</style>
+{% endblock %} {% block navigation %}
+<header>
+  <nav>
+    <ul>
+      <li class="btn-primary"><a href="/guidelines">Dashboard</a></li>
+    </ul>
+  </nav>
+  <div class="login-button">
+    <a href="/profile-setting">{{session['name']}}</a>
+    <a href="/logout">Logout</a>
+  </div>
+</header>
+{% endblock %} {% block cover %}
+<div class="cover">
+  <center>
+    <img
+      src="../static/graphics/OptTeamLogo1.jpg"
+      class="img-fluid"
+      alt="OpTeamLogo"
+      style="width: auto"
+    />
+  </center>
+</div>
+{% endblock %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    <h3 class="text-center">
+      <strong> Welcome to the Optimal Team Generator! </strong>
+    </h3>
+
+    <div class="form-row">
+      <div class="col-lg">
+        <div class="form-group">
+          <h4>
+            <strong><u>How does it</u> </strong>
+          </h4>
+          <h5>
+            <ol>
+              <li>
+                Enter the number of people you wish to divide into groups.
+              </li>
+              <li>
+                Select one of two options to divide the groups by and fill the
+                input accordingly.
+              </li>
+              <li>Fill the table.</li>
+              <li>Click Generate teams!</li>
+            </ol>
+          </h5>
+          <div class="d-flex justify-content-end">
+            <a href="/group-information"
+              ><button
+                class="shadow tn btn-primary rounded-5 p-3 pl-5 pr-5 try-now-btn d-flex justify-content-center p-4"
+              >
+                NEXT
+              </button></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

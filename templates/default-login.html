@@ -1,0 +1,49 @@
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    <header class="container" style="height: 72px">
+      <img
+        src="../static/graphics/OptTeamLogo.png"
+        class="img-fluid"
+        alt="OpTeamLogo"
+        style="width: auto; padding-top: -10px"
+      />
+    </header>
+    <div class="container login-form">
+      <div class="form-image-text" style="width: auto">
+        <div class="text" style="width: auto">
+          <h1><strong>OpTeam</strong></h1>
+          <p class="mt-3">{% block imageText %}{% endblock %}</p>
+        </div>
+        <center>
+          <img
+            src="../static/graphics/pic_team.png"
+            class="img-fluid mt-5"
+            alt="OpTeamTeam"
+          />
+        </center>
+      </div>
+      {% block content %} {% endblock %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

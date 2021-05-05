@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+@font-face {
+  font-family: form-text;
+  src: url("../fonts/custom-font.otf");
+}
+
+body {
+  width: 90%;
+  background: #64c7ff;
+  margin: 0 auto;
+}
+
+img {
+  display: inline-block;
+}
+
+label {
+  width: 100%;
+  margin: 3px 0px;
+}
+form {
+  width: 80%;
+  padding: 14.5px;
+  margin: 20px 15px;
+  border: none;
+  font-family: "Courier New", Courier, monospace;
+  margin: 0 auto;
+}
+.custom-class {
+  width: 100%;
+  margin: 0 auto;
+}
+
+button {
+  width: 50%;
+}
+
+nav ul {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3%;
+  margin: 0px;
+  padding: 15px 10px 5px 10px;
+  list-style-type: none;
+  text-align: center;
+}
+.login-button {
+  padding: 5px 10px;
+  font-size: x-large;
+  text-align: right;
+  color: #07717c;
+}
+
+nav ul li a {
+  color: white;
+
+  padding: 0px 10px;
+}
+nav ul li a:hover {
+  text-decoration: none;
+}
+.btn-primary {
+  border-radius: 5px;
+  width: auto;
+  border: none;
+  background-color: #64c7ff;
+}
+.login-button a:hover {
+  color: #64c7ff;
+  text-decoration: none;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  color: #8dd2fa;
+}
+.cover {
+  background-color: #64c7ff;
+  border: 10px solid white;
+}
+.login-form {
+  box-sizing: border-box;
+  border: 5px solid #64c7ff;
+  padding: 0px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.form-image-text {
+  width: 100%;
+  border: 2px solid #64c7ff;
+  padding: 25px 0px 30px 15px;
+  margin: 20px;
+  border-radius: 20px;
+
+  background: white;
+}
+.text h1 {
+  font-family: form-text;
+  width: auto;
+}
+.text p {
+  padding-top: 15px;
+}
+.image {
+  text-indent: -99999px;
+  background: url("../graphics/pic_team.png");
+  background-size: cover;
+  width: auto;
+  height: 141px;
+}
+.login-signup {
+  width: 100%;
+  border-radius: 15px;
+  background: #07717c;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  color: white;
+}
+
+.login-field {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  background: #07717c;
+  gap: 5%;
+}
+.forget-pass-field {
+  width: 70%;
+  margin: 0 auto;
+}
+.btn-primary {
+  border-radius: 10px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+}
+.form-control {
+  height: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+  .w-100 {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .btn-responsive {
+    padding: 2px 4px;
+    font-size: 11px;
+    line-height: 1;
+    border-radius: 3px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .btn-responsive {
+    padding: 4px 9px;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+}

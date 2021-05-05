@@ -1,0 +1,658 @@
+{% extends "default.html" %} {% block title %}OpTeam - Optimze Your Team!{%
+endblock %} {% block head %}
+<style>
+  nav ul {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3%;
+    margin: 0px;
+    padding: 15px 10px 5px 10px;
+    list-style-type: none;
+    text-align: center;
+  }
+
+  .btn-primary {
+    border-radius: 5px;
+    width: auto;
+    border: none;
+    background-color: #009bed;
+  }
+  .login-button a {
+    color: #07717c;
+  }
+  .login-button a:hover {
+    color: #009bed;
+    text-decoration: none;
+  }
+  header {
+    background: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: #07717c;
+  }
+  .login-button a {
+    color: #07717c;
+  }
+  .main {
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+  }
+
+  @media only screen and (max-width: 600px) {
+    .w-100 {
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    .btn-responsive {
+      padding: 2px 4px;
+      font-size: 11px;
+      line-height: 1;
+      border-radius: 3px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 992px) {
+    .btn-responsive {
+      padding: 4px 9px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+
+  header {
+    width: 100%;
+    text-align: center;
+  }
+  img {
+    display: inline-block;
+    margin: 0 auto;
+  }
+  #method1form {
+    display: none;
+  }
+  #method2form {
+    display: none;
+  }
+  form {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: form-text;
+  }
+  option {
+    height: 10px;
+  }
+</style>
+{% endblock %} {% block navigation %}
+
+<header>
+  <nav>
+    <ul>
+      <li class="btn-primary"><a href="/guidelines">Dashboard</a></li>
+    </ul>
+  </nav>
+  <div class="login-button">
+    <a href="/profile-setting">{{session['name']}}</a>
+    <a href="/logout">Logout</a>
+  </div>
+</header>
+{% endblock %} {% block cover %}
+<div class="cover">
+  <center>
+    <img
+      src="../static/graphics/OptTeamLogo1.jpg"
+      class="img-fluid"
+      alt="OpTeamLogo"
+      style="width: auto"
+    />
+  </center>
+</div>
+{% endblock %} {% block content %}
+
+<div class="card">
+  <div class="card-body">
+    <h2>Participants Method</h2>
+    <p>Select your method of adding participants</p>
+    <label class="radio-inline">
+      <input type="radio" name="method" onclick="GroupMethod(0)" />Enter
+      Participants Manually
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="method" onclick="GroupMethod(1)" />Upload File
+    </label>
+  </div>
+</div>
+<form action="/process" method="POST" class="Manual-entry" id="method1form">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1"
+              ><strong>Total number of participants to divide ? </strong></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="HowManyParticipantsInTotal"
+              placeholder="Enter Number"
+              min="4"
+              max="21"
+              onchange="auto_add_rows(this)"
+            />
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="resetParticipants()"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1"
+              ><strong>Divide Groups By </strong></label
+            >
+            <select class="form-control p-0" onchange="change_select(this)">
+              <option value="Number of Participants">
+                Number of Participants
+              </option>
+              <option value="groups">Number of Groups</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="number"><strong>Enter Number</strong></label>
+            <input
+              type="number"
+              class="form-control"
+              name="Number of Participants"
+              placeholder="Enter Number"
+              id="number"
+              min="2"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered w-200 mt-5">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  value="Participants"
+                  readonly
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  value="Binary"
+                  readonly
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Parameter 1 Title"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Parameter 2 Title"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Parameter 3 Title"
+                />
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <td scope="row">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Participant Name"
+                  name="name1"
+                  required
+                />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="binary1">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer1_1">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer2_1">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer3_1">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Participant Name"
+                  name="name2"
+                  required
+                />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="binary2">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer1_2">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer2_2">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer3_2">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Participant Name"
+                  name="name3"
+                  required
+                />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="binary3">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer1_3">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer2_3">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer3_3">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td scope="row">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  placeholder="Participant Name"
+                  name="name4"
+                  required
+                />
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="binary4">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer1_4">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select class="form-control p-0" name="integer2_4">
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <select
+                  class="form-control p-0"
+                  id="exampleFormControlSelect1"
+                  name="integer3_4"
+                >
+                  <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-5">
+      <button
+        class="btn btn-outline-primary btn-lg"
+        type="button"
+        id="plusButton"
+        onclick="add_row()"
+      >
+        <i class="fa fa-plus"></i> Row
+      </button>
+      <button
+        class="btn btn-outline-danger btn-lg"
+        id="remove"
+        type="button"
+        onclick="delete_row()"
+      >
+        <i class="fa fa-minus"></i> Row
+      </button>
+
+      <button
+        class="btn btn-outline-success btn-lg"
+        name="action"
+        value="generate"
+      >
+        Generate Teams!
+      </button>
+    </div>
+
+    <br /><br />
+  </div>
+</form>
+
+<form
+  action="/process"
+  class="Manual-entry"
+  id="method2form"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="text-center">
+        <strong> Welcome to the Optimal Team Generator! </strong>
+      </h3>
+
+      <div class="form-row">
+        <div class="col-lg">
+          <div class="form-group">
+            <h4>
+              <strong><u>How does it work?</u> </strong>
+            </h4>
+            <h5>
+              <ol>
+                <li>
+                  Download our xlsx format:
+                  <a href="/static/format/excel_upload_file.xlsx" download>
+                    <input type="button" value="Download" />
+                  </a>
+                </li>
+
+                <li>Enter your data.</li>
+                <li>
+                  Upload the same file over here:
+                  <input type="file" id="myFile" name="input-file" />
+                </li>
+              </ol>
+            </h5>
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1"
+                    ><strong>Divide Groups By </strong></label
+                  >
+                  <select
+                    class="form-control p-0"
+                    onchange="change_select(this)"
+                  >
+                    <option value="Number of Participants">
+                      Number of Participants
+                    </option>
+                    <option value="groups">Number of Groups</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="number_file"><strong>Enter Number</strong></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="Number of Participants"
+                  placeholder="Enter Number"
+                  id="number_file"
+                  min="2"
+                  required
+                />
+              </div>
+            </div>
+            <div class="text-center mt-5">
+              <button
+                class="btn btn-outline-success btn-lg"
+                name="action"
+                value="excelButton"
+              >
+                Generate Teams!
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br /><br />
+</form>
+{% endblock %}

@@ -1,0 +1,343 @@
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    {% block navigation %} {% endblock %} {% block cover %} {% endblock %} {%
+    block content %} {% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+      document.getElementById("remove").style.display = "none";
+
+      function delete_row() {
+        $("tr").last().remove();
+        if (
+          document.querySelectorAll("tr").length - 1 > 4 &&
+          document.querySelectorAll("tr").length - 1 <= 20
+        ) {
+          document.getElementById("remove").style.display = "initial";
+          document.getElementById("plusButton").style.display = "initial";
+          row--;
+        } else {
+          document.getElementById("remove").style.display = "none";
+        }
+      }
+      var name_count = 5;
+      var binary_count = 5;
+
+      var row = 5;
+
+      function add_row() {
+        if (row >= 5 && row <= 20) {
+          document.getElementById("remove").style.display = "initial";
+
+          $("tbody").append(
+            `<tr>
+                  <td scope="row">  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Participant Name" name="name` +
+              name_count +
+              `" required>
+                    </div>
+                  </td>
+                  <td> <div class="form-group">
+                      <select class="form-control p-0" name="binary` +
+              binary_count +
+              `">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div></td>
+                    <td> <div class="form-group">
+                      <select class="form-control p-0" name="integer1_` +
+              row +
+              `">
+                          <option value="0">Empty</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                    </div></td>
+                    <td> <div class="form-group">
+                      <select class="form-control p-0" name="integer2_` +
+              row +
+              `">
+                          <option value="0">Empty</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                    </div></td>
+                    <td> <div class="form-group">
+                      <select class="form-control p-0" name="integer3_` +
+              row +
+              `">
+                          <option value="0">Empty</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                    </div></td>
+                </tr>
+      `
+          );
+          name_count++;
+          binary_count++;
+
+          row++;
+        } else {
+          document.getElementById("plusButton").style.display = "none";
+        }
+      }
+
+      function resetParticipants() {
+        var y = document.getElementById("HowManyParticipantsInTotal");
+        y.value = 4;
+        auto_add_rows(y);
+      }
+      function resetParticipantsFile() {
+        var y = document.getElementById("HowManyParticipantsInTotal2");
+        y.value = 4;
+        auto_add_rows(y);
+      }
+      function auto_add_rows(val) {
+        var x = val.value;
+        console.log(x);
+        var y = document.getElementById("exampleFormControlSelect1").value;
+        var lenRows = document.querySelectorAll("tr").length;
+        console.log(lenRows - 1);
+        if (x >= 4 && x <= 20) {
+          if (x > lenRows - 1) {
+            for (i = 0; i < x - (lenRows - 1); i++) {
+              add_row();
+            }
+          }
+          if (x < lenRows - 1) {
+            for (i = 0; i < lenRows - 1 - x; i++) {
+              delete_row();
+              console.log("delete");
+            }
+          }
+        }
+      }
+
+      function change_select(val) {
+        console.log(val.value);
+        $("#number").attr("name", val.value);
+      }
+
+      function unrequired_fileds() {
+        var table = document.getElementById("tbody");
+        var input = table.getElementsByTagName("input");
+        for (var z = 0; z < input.length; z++) {
+          input[z].required = false;
+        }
+      }
+      function GroupMethod(x) {
+        if (x == 0) {
+          document.getElementById("method1form").style.display = "block";
+          document.getElementById("method2form").style.display = "none";
+        } else if (x == 1) {
+          document.getElementById("method2form").style.display = "block";
+          document.getElementById("method1form").style.display = "none";
+        }
+        return;
+      }
+    </script>
+    <script>
+      document.getElementById("remove").style.display = "none";
+
+      function delete_row() {
+        $("tr").last().remove();
+        if (
+          document.querySelectorAll("tr").length - 1 > 4 &&
+          document.querySelectorAll("tr").length - 1 <= 20
+        ) {
+          document.getElementById("remove").style.display = "initial";
+          document.getElementById("plusButton").style.display = "initial";
+          row--;
+        } else {
+          document.getElementById("remove").style.display = "none";
+        }
+      }
+      var name_count = 5;
+      var binary_count = 5;
+
+      var row = 5;
+
+      function add_row() {
+        if (row >= 5 && row <= 20) {
+          document.getElementById("remove").style.display = "initial";
+
+          $("tbody").append(
+            `<tr>
+            <td scope="row">  <div class="form-group">
+                <input type="text" class="form-control" placeholder="Participant Name" name="name` +
+              name_count +
+              `" required>
+              </div>
+            </td>
+            <td> <div class="form-group">
+                <select class="form-control p-0" name="binary` +
+              binary_count +
+              `">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <select class="form-control p-0" name="integer1_` +
+              row +
+              `">
+                    <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <select class="form-control p-0" name="integer2_` +
+              row +
+              `">
+                    <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <select class="form-control p-0" name="integer3_` +
+              row +
+              `">
+                    <option value="0">Empty</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div></td>
+          </tr>
+`
+          );
+          name_count++;
+          binary_count++;
+
+          row++;
+        } else {
+          document.getElementById("plusButton").style.display = "none";
+        }
+      }
+
+      function resetParticipants() {
+        var y = document.getElementById("HowManyParticipantsInTotal");
+        y.value = 4;
+        auto_add_rows(y);
+      }
+      function resetParticipantsFile() {
+        var y = document.getElementById("HowManyParticipantsInTotal2");
+        y.value = 4;
+        auto_add_rows(y);
+      }
+      function auto_add_rows(val) {
+        var x = val.value;
+        console.log(x);
+        var y = document.getElementById("exampleFormControlSelect1").value;
+        var lenRows = document.querySelectorAll("tr").length;
+        console.log(lenRows - 1);
+        if (x >= 4) {
+          if (x > lenRows - 1) {
+            for (i = 0; i < x - (lenRows - 1); i++) {
+              add_row();
+            }
+          }
+          if (x < lenRows - 1) {
+            for (i = 0; i < lenRows - 1 - x; i++) {
+              delete_row();
+              console.log("delete");
+            }
+          }
+        }
+      }
+
+      function change_select(val) {
+        console.log(val.value);
+        $("#number").attr("name", val.value);
+      }
+
+      function unrequired_fileds() {
+        var table = document.getElementById("tbody");
+        var input = table.getElementsByTagName("input");
+        for (var z = 0; z < input.length; z++) {
+          input[z].required = false;
+        }
+      }
+      function GroupMethod(x) {
+        if (x == 0) {
+          document.getElementById("method1form").style.display = "block";
+          document.getElementById("method2form").style.display = "none";
+        } else if (x == 1) {
+          document.getElementById("method2form").style.display = "block";
+          document.getElementById("method1form").style.display = "none";
+        }
+        return;
+      }
+    </script>
+  </body>
+</html>

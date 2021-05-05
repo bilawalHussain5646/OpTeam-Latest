@@ -1,0 +1,183 @@
+{% extends "default-login.html" %} {% block title %}Signup{% endblock %} {%
+block head %}{% endblock %} {% block imageText %} Log in or create a new account
+{% endblock %} {% block content %}
+<div class="login-signup">
+  <form action="/signup" method="POST">
+    <center>
+      <h2><strong>Login</strong></h2>
+    </center>
+    {% if login %}
+    {% if login.id==1 %}
+        <div class="alert alert-success">
+        <strong>Success!</strong> {{login.msg}}
+        </div>
+    {% endif %}
+    {% if login.id==3 %}
+        <div class="alert alert-warning">
+        <strong>Warning!</strong> {{login.msg}}
+        </div>
+    {% endif %}
+    {% if login.id==2 %}
+        <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{login.msg}}
+        </div>
+    {% endif %}
+    {% if login.id==4 %}
+        <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{login.msg}}
+        </div>
+    {% endif %}
+    {% if login.id==5 %}
+        <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{login.msg}}
+        </div>
+    {% endif %}
+       {% if login.id==10 %}
+        <div class="alert alert-success">
+        <strong>SUCCESS!</strong> {{login.msg}}
+        </div>
+    {% endif %}
+    {% endif %}
+
+
+
+
+    {% if access %}
+    {% if access.id==13 %}
+        <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{access.msg}}
+        </div>
+    {% endif %}
+    {% endif %}
+
+    <div class="login-field">
+      <div class="form-group">
+        <label for="email-login">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email-login"
+          placeholder="abc@email.com"
+          name="email-login"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password-login">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password-login"
+          name="password-login"
+          placeholder="******"
+          required
+        />
+      </div>
+      <div>
+        <a href="/forget-password">Forget your password?</a>
+      </div>
+    </div>
+    <center>
+      <button class="btn btn-primary mt-1" name="action" value="Login">
+        Login
+      </button>
+    </center>
+  </form>
+  <form action="/signup" method="POST">
+    <center>
+      <h2><strong>Sign Up</strong></h2>
+    </center>
+    {% if signup %}
+    {% if signup.id==1 %}
+        <div class="alert alert-success">
+        <strong>Success!</strong> {{signup.msg}}
+        </div>
+    {% endif %}
+     {% if signup.id==6 %}
+        <div class="alert alert-success">
+        <strong>Success!</strong> {{signup.msg}}
+        </div>
+    {% endif %}
+    {% if signup.id==3 %}
+        <div class="alert alert-warning">
+        <strong>Warning!</strong> {{signup.msg}}
+        </div>
+    {% endif %}
+    {% if signup.id==2 %}
+        <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{signup.msg}}
+        </div>
+    {% endif %}
+    {% if signup.id==7 %}
+        <div class="alert alert-danger">
+        <strong>ERROR!</strong> {{signup.msg}}
+        </div>
+    {% endif %}
+    {% endif %}
+    <div>
+      <div class="login-field">
+        <div class="form-group mt-0 mb-0">
+          <label for="firstname">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstname"
+            placeholder="John"
+            name="fname"
+            required
+          />
+        </div>
+        <div class="form-group mt-0 mb-0">
+          <label for="lastname">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastname"
+            placeholder="Smith"
+            name="lname"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group mt-0 mb-0">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="abc@email.com"
+          name="email"
+          required
+        />
+      </div>
+      <div class="form-group mt-0 mb-0">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="******"
+          name="password"
+          required
+        />
+      </div>
+      <div class="form-group mt-0 mb-0">
+        <label for="organization">Organization</label>
+        <input
+          type="text"
+          class="form-control"
+          id="organization"
+          placeholder="OPTeam"
+          name="organization"
+          required
+        />
+      </div>
+    </div>
+    <center>
+      <button class="btn btn-primary mt-3" name="action" value="Signup">
+        Signup
+      </button>
+    </center>
+  </form>
+</div>
+{% endblock %}

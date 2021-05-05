@@ -1,0 +1,196 @@
+{% extends "default.html" %} {% block title %}Profile Setting{% endblock %} {% block
+head %}
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  nav ul {
+    width: 100%;
+
+    margin: 0px;
+    padding: 15px 10px 5px 10px;
+    list-style-type: none;
+    text-align: center;
+  }
+  .login-button {
+    padding: 5px 10px;
+    font-size: x-large;
+    text-align: right;
+    color: #573333;
+  }
+
+  nav ul li a {
+    color: white;
+
+    padding: 0px 10px;
+  }
+  nav ul li a:hover {
+    text-decoration: none;
+  }
+  .btn-primary {
+    border-radius: 5px;
+    width: auto;
+    border: none;
+    background-color: #009bed;
+  }
+  .login-button a:hover {
+    color: #009bed;
+    text-decoration: none;
+  }
+
+  .main {
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+  }
+  .try-our-product {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    padding: 50px;
+    background-color: #8ed6ff;
+    color: #333333;
+    border-top: 5px solid #333333;
+  }
+  .try-our-product .product-content ul {
+    list-style-type: none;
+    padding: 0px;
+    font-size: large;
+    font-weight: 600;
+  }
+  .try-now-btn {
+    font-size: larger;
+    font-weight: bolder;
+    background-color: #53b0df;
+    border: 5px solid #85afc7;
+    color: #b7e1f9;
+  }
+  header {
+    background: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: #07717c;
+  }
+  .login-button a {
+    color: #07717c;
+  }
+  .login-field{
+   background-color:#ffffff;
+
+  }
+</style>
+{% endblock %} {% block navigation %}
+<header>
+  <nav>
+    <ul>
+      <li class="btn-primary"><a href="/guidelines">Dashboard</a></li>
+    </ul>
+  </nav>
+  <div class="login-button">
+    <a href="/profile-setting">{{session['name']}}</a>
+    <a href="/logout">Logout</a>
+  </div>
+</header>
+{% endblock %} {% block cover %}
+<div class="cover">
+  <center>
+    <img
+      src="../static/graphics/OptTeamLogo1.jpg"
+      class="img-fluid"
+      alt="OpTeamLogo"
+      style="width: auto"
+    />
+  </center>
+</div>
+{% endblock %} {% block content %}
+<div class="card">
+  <div class="card-body">
+  <form action="/profile-setting" method="POST">
+    <center>
+      <h2><strong>Profile Setting</strong></h2>
+    </center>
+    {% if error %} {% if error.id==14 %}
+    <div class="alert alert-success">
+      <strong>Success!</strong> {{error.msg}}
+    </div>
+    {% endif %} {% if error.id==3 %}
+    <div class="alert alert-warning">
+      <strong>Warning!</strong> {{error.msg}}
+    </div>
+    {% endif %} {% if error.id==11 %}
+    <div class="alert alert-danger"><strong>ERROR!</strong> {{error.msg}}</div>
+    {% endif %} {% endif %}
+    <div>
+      <div class="login-field">
+        <div class="form-group mt-0 mb-0">
+          <label for="firstname">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstname"
+            placeholder="John"
+            name="fname"
+            value ="{{ session['fname']}}"
+            required
+          />
+        </div>
+        <div class="form-group mt-0 mb-0">
+          <label for="lastname">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastname"
+            placeholder="Smith"
+            name="lname"
+            value ="{{ session['lname']}}"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group mt-0 mb-0">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="******"
+          name="password"
+          required
+        />
+      </div>
+      <div class="form-group mt-0 mb-0">
+        <label for="confirmpass">Confirm Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="confirmpass"
+          placeholder="******"
+          name="confirmpass"
+          required
+        />
+      </div>
+      <div class="form-group mt-0 mb-0">
+        <label for="organization">Organization</label>
+        <input
+          type="text"
+          class="form-control"
+          id="organization"
+          placeholder="OPTeam"
+          name="organization"
+          value ="{{ session['organization']}}"
+          required
+        />
+      </div>
+    </div>
+    <center>
+      <button class="btn btn-primary mt-3" name="action" value="update">
+        Update
+      </button>
+    </center>
+  </form>
+</div>
+</div>
+{% endblock %}
